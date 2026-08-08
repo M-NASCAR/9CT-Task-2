@@ -35,3 +35,53 @@
 ### Non-Functional Requirements
  + __Enclosure:__ I must make sure that the circuitry is suitably enclosed to survive harsh weather conditions such as  rain, wind or heat 
  +__Clean Circuitry:__ Clean presentable circuitry which minimises the space taken by the project
+
+
+
+
+ ## Algorithm
+
+### Flowchart
+![image of flowchart](Mechatronics%20Flowchart%20Image.png)
+
+
+
+ ### Pseudocode
+   ```
+   BEGIN too_much()
+   clear_output()
+   OUTPUT led(0,0,255)-(Colour blue)
+   END too_much
+
+   BEGIN not_enough()
+   clear_output()
+   OUTPUT led(255,0,0)-(Colour red)
+   END not_enough
+    
+   BEGIN enough()
+   clear_output()
+   OUTPUT led(255,255,0)-(Colour yellow)
+   END enough
+
+   BEGIN healthy()
+   clear_output()
+   OUTPUT led(0,255,0)-(Colour green)
+   END healthy()
+
+
+BEGIN
+      WHILE true
+         READ moisture_levels
+         IF moisture_level < 20
+            not_enough()
+         ELSE IF moisture_level < 40
+            enough()
+         ELSE IF moisture_level < 70
+            healthy()
+         ELSE
+            too_much()
+         ENDIF
+      ENDWHILE
+END
+
+```
