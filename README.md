@@ -34,7 +34,7 @@
 
 ### Non-Functional Requirements
  + __Enclosure:__ I must make sure that the circuitry is suitably enclosed to survive harsh weather conditions such as  rain, wind or heat 
- +__Clean Circuitry:__ Clean presentable circuitry which minimises the space taken by the project
+ + __Clean Circuitry:__ Clean presentable circuitry which minimises the space taken by the project
 
 
 
@@ -85,3 +85,16 @@ BEGIN
 END
 
 ```
+
+### Testing & Debugging
+Moisture Sensor Test:
+The purpose of this test was to collect data on the sensor reading in air (In dry conditions) and in a cup of water (100% wet). In a perfect world (Ideal Conditions) the reading for when the sensor is in the air should have been ~0 and for when the sensor is in water should be ~45000. However when I ran the code printing the ADC value when it was dry it was  ~200 and the value when wet was ~36,000 so using this data I calibrated the values for wet and dry in my code to ensure accurate readings and therefore accurate moisture level percentages.
+
+
+Another issue I encountered during this intial test was the percentage conversion was stuck at 0.8-0.9% even when the sensor was dipped in water, upon further inspection I realised while my sensor is a resistive sensor meaning it checks for moisture by sensing voltage, becuase air is an insulator and water is a conducter, the amount of voltage which passes through is directly reliant on the water level, the specific model I have made by [keyestudio](https://wiki.keyestudio.com/Ks0049_keyestudio_Soil_Humidity_Sensor#Sample_Code_2) has already solved the problem of inverting the values.
+The code below was the code I was using to calculate the percentage
+```
+ moisture = (min_moisture - value) / (min_moisture - max_moisture)
+ moisture_percent = moisture * 100
+```
+ 
