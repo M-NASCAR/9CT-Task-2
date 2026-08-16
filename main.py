@@ -1,25 +1,49 @@
 
 from machine import ADC, Pin
 import utime
- 
-# use variables instead of numbers:
 soil = ADC(Pin(26)) # Connect Soil moisture sensor data to Raspberry pi pico GP26 
+import neopixel
+
+
+
+num_LED = 5
+pixels = neopixel.NeoPixel(Pin(27), num_LED)
+soil = ADC(Pin(26)) # Setting up the sensor by connecting to to GPIO pin 26 (ADC0)
  
 #Calibraton values
 min_moisture= 200 # ADC reading in air (Dry)
-max_moisture=36000 #ADC reading in water (wet)       2200
+max_moisture=35000 #ADC reading in water (wet)    
+readDelay = 0.5 # time between readings   
 
-value = soil.read_u16()
  
  
-readDelay = 0.1 # time between readings
+
  
 while True: # prints the reading
-    moisture = (min_moisture - value) / (min_moisture - max_moisture)
-    moisture_percent = moisture * 100
-    # print values
-    print("moisture: " + " " % moisture +"% (adc: "+ str(soil.read_u16())+")") 
-    utime.sleep(readDelay) # set a delay between readings
+    
+    if value - min_moisture != 0:
+         moisture_percent = moisture * 100
+    else:
+        moisture_percent = 0      # Needed to prevent zerodivisible error
+
+
+
+    if moisture_percent > 70:
+        colour = (0, 0, 255) #sets colour to blue
+    elif moisture_percent > 40 and moisture_percent < 70:
+        colour = (0,255,0) # SEts colour to green
+    elif moisture_percent > 20 and moisture_percent < 40:
+        colour = (255,255,0) #Sets colour to yellow
+    else:
+        colour = (255,0,0)
+
+    pixels.fill(colour)
+    pixels.write
+
+    print(f"Moisture: {moisture_percent}%" + "  Value: " + str(value)) # Prints moisture levels (Temporary)
+    time.sleep(readDelay) # set a delay between readings
+
+
 
 
     
