@@ -116,3 +116,8 @@ After overcoming this issue the lights still would not turn on however after loo
 ```pixels.write``` ----> ```pixels.write()```
 
 
+
+## Evaluation:
+
+
+
